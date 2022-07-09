@@ -22,11 +22,11 @@ async function saveUserPics() {
 
 	const user_names = [];
 
-	followers.data.forEach(({ username }) => user_names.push(username));
+	followers.data.forEach(({ username, id }) => user_names.push({id,username}));
 
-	const save_pic = async (username) => {
+	const save_pic = async ({id,username}) => {
 		// Get the user's profile image from the API
-		const user = await client.v1.user({user_id: username});
+		const user = await client.v1.user({user_id: id});
 		const image = await jimp.read(user.profile_image_url_https);
 		image.write(`${username}.png`);
 	};
