@@ -25,9 +25,9 @@ async function saveUserPics() {
 	followers.data.forEach(({ username }) => user_names.push(username));
 
 	const save_pic = async (username) => {
-		const URL = `https://unavatar.io/twitter/${username}`;
-
-		const image = await jimp.read(URL);
+		// Get the user's profile image from the API
+		const user = await client.v1.users.show(username);
+		const image = await jimp.read(user.profile_image_url_https);
 		image.write(`${username}.png`);
 	};
 
