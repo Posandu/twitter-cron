@@ -26,7 +26,7 @@ async function saveUserPics() {
 
 	const save_pic = async (username) => {
 		// Get the user's profile image from the API
-		const user = await client.v1.users.show(username);
+		const user = await client.v1.user({user_id: username});
 		const image = await jimp.read(user.profile_image_url_https);
 		image.write(`${username}.png`);
 	};
